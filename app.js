@@ -7,7 +7,6 @@ function isolateCode() {
 
 
 
-
         function activeTab(index) {
 
             tabContent.forEach((section) => {
@@ -57,14 +56,26 @@ function initAccordion() {
 initAccordion();
 
 
+function initScrollSuave(){
 const linksInternos = document.querySelectorAll('.js-menu a[href^="#"]');
 
 
 function e(event) {
     event.preventDefault();
     const href = event.currentTarget.getAttribute('href');
-    console.log(href)
-    
+    const section = document.querySelector(href)
+    const topo = section.offtsetTop;
+
+
+    section.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start',
+    })
+
+    // window.scrollTo({
+    //     top: 1000,
+    //     behavior: 'smooth',
+    // });
 
 }
 
@@ -77,6 +88,9 @@ linksInternos.forEach((links) => {
 })
 
 
+}
+
+initScrollSuave(); 
 
 
 
@@ -85,26 +99,28 @@ linksInternos.forEach((links) => {
 
 
 
+function animationScroll() {
+    const sections = document.querySelectorAll('.js-scroll');
+    const windowMetade = window.innerHeight * 0.6;
+
+    function animaScroll() {
+        sections.forEach((section) => {
+            const sectionTop = section.getBoundingClientRect().top;
+            const isSectionVisible = (sectionTop - windowMetade);
+            // console.log(sectionTop)
+            if (sectionTop < 0) {
+                section.classList.add('active');
+            } else {
+                section.classList.remove('active');
+            }
+        })
+    }
 
 
+    window.addEventListener('scroll', animaScroll)
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+}
+animationScroll();
 
 
 
